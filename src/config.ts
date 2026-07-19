@@ -8,12 +8,6 @@ export const SEARCH_TYPE = 'video';
 export const RELEVANCE_LANGUAGE = 'FR';
 export const VIDEO_DURATION = 'medium';
 
-export const PREFIX_YOUTUBE_ID = [
-  'FREE',
-  '(free)',
-  '[FREE]',
-];
-
 export const ARTIST_NAME = [
   // francophones (100)
   'ninho',

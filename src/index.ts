@@ -1,4 +1,4 @@
-import { ARTIST_NAME, PREFIX_YOUTUBE_ID } from './config';
+import { ARTIST_NAME } from './config';
 import { insertNewBeatmakers } from './lib/db';
 import { fetchChannelsByIds, fetchVideosByIds, searchAllVideos } from './lib/fetch';
 import { getCountry, getEmail, getInsta } from './lib/getInfo';
@@ -12,9 +12,8 @@ function formatScrapDate(date = new Date()): string {
   return `${dd}/${mm} ${hh}h${min}`;
 }
 
-const prefixYoutubeId = PREFIX_YOUTUBE_ID[Math.floor(Math.random() * PREFIX_YOUTUBE_ID.length)];
 const artistName = ARTIST_NAME[Math.floor(Math.random() * ARTIST_NAME.length)];
-const searchQuery = `${prefixYoutubeId} typebeat ${artistName}`;
+const searchQuery = `typebeat ${artistName}`;
 
 let process_code = 0
 try {
