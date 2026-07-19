@@ -48,7 +48,7 @@ try {
   
 } catch (error) {
   process_code = 1;
-  console.error(error);
+  console.log('error: ', error);
 }
 finally {
   console.log('---------');
