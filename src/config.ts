@@ -1,4 +1,4 @@
-export const PAGE_NUMBER = 10;
+export const PAGE_NUMBER = 4;
 export const LIMIT_PER_PAGE = 50;
 export const IDS_PER_REQUEST = 50;
 export const API_URL = 'https://www.googleapis.com/youtube/v3/';
