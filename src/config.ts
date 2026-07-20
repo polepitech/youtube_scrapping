@@ -50,7 +50,7 @@ export const ARTIST_NAME = [
   'kofs',
   'l2b',
   'la fouine',
-  'la rafleuse',
+  'la rvfleuze',
   'lacrim',
   'lartiste',
   'laylow',
