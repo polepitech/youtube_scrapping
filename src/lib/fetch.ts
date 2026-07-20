@@ -59,7 +59,7 @@ export async function searchVideosPage(
     type: SEARCH_TYPE,
     order: SEARCH_ORDER,
     maxResults: LIMIT_PER_PAGE.toString(),
-    relevanceLanguage: RELEVANCE_LANGUAGE,
+    // relevanceLanguage: RELEVANCE_LANGUAGE,
     videoDuration: VIDEO_DURATION,
     q: searchQuery,
   };
