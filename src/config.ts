@@ -3,7 +3,7 @@ export const LIMIT_PER_PAGE = 50;
 export const IDS_PER_REQUEST = 50;
 export const API_URL = 'https://www.googleapis.com/youtube/v3/';
 
-export const SEARCH_ORDER = 'date';
+export const SEARCH_ORDER = 'relevance';
 export const SEARCH_TYPE = 'video';
 export const RELEVANCE_LANGUAGE = 'FR';
 export const VIDEO_DURATION = 'medium';
