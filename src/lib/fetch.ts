@@ -58,6 +58,7 @@ export async function searchVideosPage(
     part: 'snippet',
     type: SEARCH_TYPE,
     order: SEARCH_ORDER,
+    publishedAfter: '2026-04-25T00:00:00Z', // 3 derniers mois
     maxResults: LIMIT_PER_PAGE.toString(),
     // relevanceLanguage: RELEVANCE_LANGUAGE,
     videoDuration: VIDEO_DURATION,
