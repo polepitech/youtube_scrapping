@@ -3,7 +3,7 @@ import {
   IDS_PER_REQUEST,
   LIMIT_PER_PAGE,
   PAGE_NUMBER,
-  RELEVANCE_LANGUAGE,
+  PUBLISHED_AFTER,
   SEARCH_ORDER,
   SEARCH_TYPE,
   VIDEO_DURATION,
@@ -12,6 +12,7 @@ import type {
   YoutubeChannel,
   YoutubeChannelListResponse,
   YoutubeSearchListResponse,
+  YoutubeSearchResult,
   YoutubeVideo,
   YoutubeVideoListResponse,
 } from '../type/youtube';
@@ -58,9 +59,8 @@ export async function searchVideosPage(
     part: 'snippet',
     type: SEARCH_TYPE,
     order: SEARCH_ORDER,
-    publishedAfter: '2026-04-25T00:00:00Z', // 3 derniers mois
+    publishedAfter: PUBLISHED_AFTER,
     maxResults: LIMIT_PER_PAGE.toString(),
-    // relevanceLanguage: RELEVANCE_LANGUAGE,
     videoDuration: VIDEO_DURATION,
     q: searchQuery,
   };
@@ -72,23 +72,33 @@ export async function searchVideosPage(
   return youtubeGet<YoutubeSearchListResponse>('search', params);
 }
 
+function filterByPublishedAfter(items: YoutubeSearchResult[]): YoutubeSearchResult[] {
+  const cutoff = new Date(PUBLISHED_AFTER).getTime();
+  return items.filter((item) => {
+    const publishedAt = item.snippet?.publishedAt;
+    if (!publishedAt) return false;
+    return new Date(publishedAt).getTime() >= cutoff;
+  });
+}
+
 export async function searchAllVideos(searchQuery: string): Promise<string[]> {
-  const videoIds: string[] = [];
+  const rawItems: YoutubeSearchResult[] = [];
   let pageToken: string | null = null;
 
   for (let i = 0; i < PAGE_NUMBER; i++) {
     const response = await searchVideosPage(searchQuery, pageToken);
-    const ids = (response.items ?? [])
-      .map((item) => item.id.videoId)
-      .filter((id): id is string => Boolean(id));
-
-    videoIds.push(...ids);
+    rawItems.push(...(response.items ?? []));
 
     pageToken = response.nextPageToken ?? null;
     if (!pageToken) break;
   }
 
-  return videoIds;
+  console.log(`avant coupure ${rawItems.length} vidéo(s)`);
+  const filtered = filterByPublishedAfter(rawItems);
+
+  return filtered
+    .map((item) => item.id.videoId)
+    .filter((id): id is string => Boolean(id));
 }
 
 export async function fetchVideosByIds(ids: string[]): Promise<YoutubeVideo[]> {
